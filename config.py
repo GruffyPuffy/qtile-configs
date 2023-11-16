@@ -34,8 +34,18 @@ import traverse
 
 import os
 import subprocess
+import platform
 
+# DEV MACHINE
 mod = "mod1"
+amixer = "amixer "
+
+# LAPTOP
+if platform.node() == 'stefan-mba':
+    mod = "mod4"
+    amixer = "amixer -c 1 "
+
+# terminal setting
 terminal = guess_terminal()
 
 
@@ -90,7 +100,6 @@ def prev_group(qtile):
     next_name = group_list[next_group_index]
     #logger.warning("Next Group:" + str(next_name))
     qtile.groups_map[next_name].toscreen(toggle=False)
-
 
 keys = [
 
@@ -168,9 +177,10 @@ keys = [
     Key([mod], "b", lazy.spawn("google-chrome"), desc="Spawn Google Chrome"),
     Key([mod], "e", lazy.spawn("i3lock-fancy -p"), desc="Lock screen"),
 
-    Key([], 'XF86AudioRaiseVolume', lazy.spawn("amixer sset Master 5%+")),
-    Key([], 'XF86AudioLowerVolume', lazy.spawn("amixer sset Master 5%-")),
-    Key([], 'XF86AudioMute', lazy.spawn("amixer sset Master toggle")),    
+    Key([], 'XF86AudioRaiseVolume', lazy.spawn(amixer+"sset Master 5%+")),
+    Key([], 'XF86AudioLowerVolume', lazy.spawn(amixer+"sset Master 5%-")),
+    Key([], 'XF86AudioMute', lazy.spawn(amixer+"sset Master toggle")),           
+
 ]
 
 layouts = [
@@ -215,9 +225,9 @@ screens = [
                 #widget.Battery(),
                 widget.TextBox("   "),
                 widget.Volume(fmt="Vol {}",
-                              volume_down_cmd="amixer sset Master 5%-",
-                              volume_up_cmd="amixer sset Master 5%+",
-                              get_volume_command="amixer sget Master"),
+                              volume_down_cmd=amixer+"sset Master 5%-",
+                              volume_up_cmd=amixer+"sset Master 5%+",
+                              get_volume_command=amixer+"sget Master"),
                 #widget.TextBox("default config", name="default"),
                 #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
@@ -252,11 +262,6 @@ screens = [
                 #widget.CPUGraph(),
                 #widget.BatteryIcon(),
                 #widget.Battery(),
-                widget.TextBox("   "),
-                widget.Volume(fmt="Vol {}",
-                              volume_down_cmd="amixer sset Master 5%-",                              
-                              volume_up_cmd="amixer sset Master 5%+",
-                              get_volume_command="amixer sget Master"),
                 #widget.TextBox("default config", name="default"),
                 #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
