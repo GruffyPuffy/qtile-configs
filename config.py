@@ -94,10 +94,6 @@ def prev_group(qtile):
 
 keys = [
 
-
-    #Key([mod, 'control'], 'Right', lazy.screen.next_group(skip_empty=False), desc='Switch to group to the right'),
-    #Key([mod, 'control'], 'Left', lazy.screen.prev_group(skip_empty=False), desc='Switch to group to the left'),
-
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
@@ -107,11 +103,6 @@ keys = [
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
 
-    #Key([mod], "Left", lazy.layout.left(), desc="Move focus to left"),
-    #Key([mod], "Right", lazy.layout.right(), desc="Move focus to right"),
-    #Key([mod], "Down", lazy.layout.down(), desc="Move focus down"),
-    #Key([mod], "Up", lazy.layout.up(), desc="Move focus up"),
- 
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -123,7 +114,6 @@ keys = [
     Key([mod, "shift"], "Right", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "Down", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "Up", lazy.layout.shuffle_up(), desc="Move window up"),
-
 
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
@@ -139,14 +129,12 @@ keys = [
     Key([mod, "shift", "control"], "Up", lazy.layout.grow_up(), desc="Grow window up"),
 
     # Navigation a la Stefan
-
     Key([mod, 'control'], 'Up', lazy.function(prev_group)),
     Key([mod, 'control'], 'Down', lazy.function(next_group)),
     Key([mod, 'control'], 'Left', lazy.prev_screen(), desc='Switch to screen to the right'),
     Key([mod, 'control'], 'Right', lazy.next_screen(), desc='Switch to screen to the left'),
 
-    #Key([mod, 'control'], 'Down', lazy.screen.next_group(skip_empty=False), desc='Switch to group to the right'),
-    #Key([mod, 'control'], 'Up', lazy.screen.prev_group(skip_empty=False), desc='switch to group to the left'),
+    Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
    
     Key([mod], 'Up', lazy.function(traverse.up)),
     Key([mod], 'Down', lazy.function(traverse.down)),
@@ -176,7 +164,6 @@ keys = [
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    #Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn command launcher"),
     Key([mod], "b", lazy.spawn("google-chrome"), desc="Spawn Google Chrome"),
     Key([mod], "e", lazy.spawn("i3lock-fancy -p"), desc="Lock screen"),
@@ -185,46 +172,6 @@ keys = [
     Key([], 'XF86AudioLowerVolume', lazy.spawn("amixer sset Master 5%-")),
     Key([], 'XF86AudioMute', lazy.spawn("amixer sset Master toggle")),    
 ]
-
-# def go_to_group(group):
-#     def f(qtile):
-#         if group in '12345':
-#             qtile.cmd_to_screen(0)
-#             qtile.groupMap[group].cmd_toscreen()
-#         else:
-#             qtile.cmd_to_screen(1)
-#             qtile.groupMap[group].cmd_toscreen()
-#     return f
-
-
-# for i in groups:
-#     keys.extend(
-#         [
-#             # mod1 + letter of group = switch to group
-#             Key(
-#                 [mod],
-#                 i.name,
-#                 lazy.group[i.name].toscreen(),
-#                 desc="Switch to group {}".format(i.name),
-#             ),
-#             # mod1 + shift + letter of group = switch to & move focused window to group
-#             Key(
-#                 [mod, "shift"],
-#                 i.name,
-#                 lazy.window.togroup(i.name, switch_group=True),
-#                 desc="Switch to & move focused window to group {}".format(i.name),
-#             ),
-#             # Or, use below if you prefer not to switch to that group.
-#             # # mod1 + shift + letter of group = move focused window to group
-#             # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-#             #     desc="move focused window to group {}".format(i.name)),
-#         ]
-#     )
-
-# for i in '1234567890':
-#     keys.append(Key([mod], i, lazy.function(go_to_group(i)))),
-#     keys.append(Key([mod, 'shift'], i, lazy.window.togroup(i)))
-
 
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
