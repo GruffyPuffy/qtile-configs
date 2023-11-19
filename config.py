@@ -47,7 +47,7 @@ if platform.node() == 'stefan-mba':
 
 # terminal setting
 terminal = guess_terminal()
-
+home = os.path.expanduser("~")
 
 groups = [Group(i) for i in "1234567890"]
 left_groups  = [str(i) for i in "12345"]
@@ -183,102 +183,152 @@ keys = [
 
 ]
 
+layout_theme = {
+    "border_width": 2,
+    "margin": 3,
+    "border_focus": "#005F0C",
+    "border_normal": "#555555"
+    }
+
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Max(),
+    #layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(**layout_theme),
+    layout.Max(**layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(),
-    layout.MonadWide(),
-    layout.RatioTile(),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    layout.RatioTile(**layout_theme),
     # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
 
+
+#   Screens Config
+# ------------------
+flat_theme = {"bg_dark": ["#606060", "#000000"],
+              "bg_light": ["#707070", "#303030"],
+              "font_color": ["#ffffff", "#cacaca"],
+
+              # groupbox
+              "gb_selected": ["#7BA1BA", "#215578"],
+              "gb_urgent": ["#ff0000", "#820202"]
+              }
+
+gloss_theme = {"bg_dark": ["#505050",
+                           "#303030",
+                           "#202020",
+                           "#101010",
+                           "#202020",
+                           "#303030",
+                           "#505050"],
+               "bg_light": ["#707070",
+                            "#505050",
+                            "#505050",
+                            "#505050",
+                            "#505050",
+                            "#707070"],
+               "font_color": ["#ffffff", "#ffffff", "#cacaca", "#707070"],
+
+               # groupbox
+               "gb_selected": ["#707070",
+                               "#505050",
+                               "#404040",
+                               "#303030",
+                               "#404040",
+                               "#505050",
+                               "#707070"],
+               "gb_urgent": ["#ff0000",
+                             "#820202",
+                             "#820202",
+                             "#820202",
+                             "#820202",
+                             "#ff0000"
+                             ]
+               }
+theme = gloss_theme
+
+# Widgets Theme
 widget_defaults = dict(
-    font="sans",
-    fontsize=12,
-    padding=3,
+    background=theme["bg_dark"],
+    foreground=theme["font_color"],
+    opacity=0.9,
+    border_color="#6f6f6f",
+    fontshadow="#000000",
+    font='sans', 
+    fontsize=14, 
+    padding=10)
+
+left_screen_bar = bar.Bar(
+    [
+        widget.CurrentLayoutIcon(),
+        widget.GroupBox(visible_groups=left_groups),
+        #widget.Prompt(),
+        widget.WindowName(),
+        widget.CPUGraph(width=42, line_width=2,
+                        graph_color='#0066FF',
+                        fill_color=['#0066FF', '#001111'],
+                        margin_x=0, border_width=1,
+                        background=theme["bg_dark"],
+                        ),
+        widget.MemoryGraph(width=42, line_width=2,
+                        graph_color='#22BB44',
+                        fill_color=['#11FF11', "#002200"],
+                        border_width=1,
+                        background=theme["bg_dark"],
+                        ),
+
+        #widget.StatusNotifier(),
+        widget.Systray(),
+        widget.Clock(format="%Y-%m-%d %H:%M"),
+        widget.Volume(fmt="Vol {}",
+            volume_down_cmd=amixer+"sset Master 5%-",
+            volume_up_cmd=amixer+"sset Master 5%+",
+            get_volume_command=amixer+"sget Master"),
+        widget.BatteryIcon(),
+        widget.CurrentLayoutIcon(),
+    ],
+    size=28, 
+    opacity=0.8
 )
-extension_defaults = widget_defaults.copy()
+right_screen_bar = bar.Bar(
+    [
+        widget.CurrentLayoutIcon(),
+        widget.GroupBox(visible_groups=right_groups),
+        #widget.Prompt(),
+        widget.WindowName(),
+        widget.Clock(format="%Y-%m-%d %H:%M"),
+        widget.CurrentLayoutIcon(),
+    ],
+    size=28, 
+    opacity=0.8
+)
+
+
 
 screens = [
     Screen(
-        bottom=bar.Bar(
-            [
-                widget.CurrentLayout(),
-                widget.GroupBox(visible_groups=left_groups),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                #widget.CPUGraph(),
-                #widget.BatteryIcon(),
-                #widget.Battery(),
-                widget.TextBox("   "),
-                widget.Volume(fmt="Vol {}",
-                              volume_down_cmd=amixer+"sset Master 5%-",
-                              volume_up_cmd=amixer+"sset Master 5%+",
-                              get_volume_command=amixer+"sget Master"),
-                #widget.TextBox("default config", name="default"),
-                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
-                widget.Systray(),
-                #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.Clock(format="%Y-%m-%d %H:%M"),
-                widget.QuickExit(),
-            ],
-            24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
-        ),
+        top=left_screen_bar,
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
         # By default we handle these events delayed to already improve performance, however your system might still be struggling
         # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
         # x11_drag_polling_rate = 60,
+        wallpaper='~/.config/qtile/wallpaper.jpg',
+        wallpaper_mode='stretch',
+        
     ),
     Screen(
-        bottom=bar.Bar(
-            [
-                widget.CurrentLayout(),
-                widget.GroupBox(visible_groups=right_groups),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                #widget.CPUGraph(),
-                #widget.BatteryIcon(),
-                #widget.Battery(),
-                #widget.TextBox("default config", name="default"),
-                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                #widget.StatusNotifier(),
-                #widget.Systray(),
-                #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.Clock(format="%Y-%m-%d %H:%M"),
-                widget.QuickExit(),
-            ],
-            24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
-        ),
+        top=right_screen_bar,
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
         # By default we handle these events delayed to already improve performance, however your system might still be struggling
         # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
         # x11_drag_polling_rate = 60,
+        wallpaper='~/.config/qtile/wallpaper.jpg',
+        wallpaper_mode='stretch',
     ),
 ]
 
