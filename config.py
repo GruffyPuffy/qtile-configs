@@ -184,7 +184,7 @@ keys = [
 ]
 
 layout_theme = {
-    "border_width": 2,
+    "border_width": 3,
     "margin": 3,
     "border_focus": "#005F0C",
     "border_normal": "#555555"
