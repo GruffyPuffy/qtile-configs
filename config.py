@@ -273,9 +273,9 @@ def get_screen_bar(number):
 
     widgets.append(widget.CurrentLayoutIcon())
     if number == 0:
-        widgets.append(widget.GroupBox(visible_groups=left_groups))
+        widgets.append(widget.GroupBox(highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=left_groups))
     else:
-        widgets.append(widget.GroupBox(visible_groups=right_groups))
+        widgets.append(widget.GroupBox(highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=right_groups))
 
     widgets.append(widget.WindowName())
     if number == 0:
