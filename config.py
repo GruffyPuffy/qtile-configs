@@ -46,10 +46,13 @@ if platform.node() == 'stefan-mba':
     islaptop = True
     mod = "mod4"
     amixer = "amixer -c 1 "
-
+    
 # terminal setting
 terminal = guess_terminal("kitty")
 home = os.path.expanduser("~")
+
+powermenu_cmd = "rofi -show powermenu -modi powermenu:'" + home + "/.config/qtile/rofi/rofi-power-menu  --no-symbols'"
+
 
 groups = [Group(i) for i in "1234567890"]
 left_groups  = [str(i) for i in "12345"]
@@ -179,6 +182,7 @@ keys = [
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn command launcher"),
     Key([mod], "b", lazy.spawn("google-chrome"), desc="Spawn Google Chrome"),
     Key([mod], "e", lazy.spawn("i3lock-fancy -p"), desc="Lock screen"),
+    Key([mod], "p", lazy.spawn(powermenu_cmd), desc="Power menu"),
 
     Key([], 'XF86AudioRaiseVolume', lazy.spawn(amixer+"sset Master 5%+")),
     Key([], 'XF86AudioLowerVolume', lazy.spawn(amixer+"sset Master 5%-")),
