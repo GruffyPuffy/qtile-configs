@@ -253,7 +253,18 @@ gloss_theme = {"bg_dark": ["#505050",
                              "#ff0000"
                              ]
                }
-theme = gloss_theme
+
+dracula_theme = {"bg_dark": ["#282a36", "#282a36"],
+                 "bg_light": ["#44475a", "#44475a"],
+                 "font_color": ["#8be9fd", "#8be9fd"],
+
+                 # groupbox
+                 "gb_selected": ["#7BA1BA", "#215578"],
+                 "gb_urgent": ["#ff0000", "#820202"]
+                }
+
+
+theme = dracula_theme
 
 # Widgets Theme
 widget_defaults = dict(
@@ -273,21 +284,21 @@ def get_screen_bar(number):
 
     widgets.append(widget.CurrentLayoutIcon())
     if number == 0:
-        widgets.append(widget.GroupBox(highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=left_groups))
+        widgets.append(widget.GroupBox(active='8be9fd', highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=left_groups))
     else:
-        widgets.append(widget.GroupBox(highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=right_groups))
+        widgets.append(widget.GroupBox(active='8be9fd', highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=right_groups))
 
     widgets.append(widget.WindowName())
     if number == 0:
         widgets.append(widget.CPUGraph(width=42, line_width=2,
-                        graph_color='#0066FF',
-                        fill_color=['#0066FF', '#001111'],
+                        graph_color='#50fa7b',
+                        fill_color=['#50fa7b', '#001111'],
                         margin_x=0, border_width=1,
                         background=theme["bg_dark"],
                         ))
         widgets.append(widget.MemoryGraph(width=42, line_width=2,
-                        graph_color='#22BB44',
-                        fill_color=['#11FF11', "#002200"],
+                        graph_color='#8be9fd',
+                        fill_color=['#8be9fd', "#002200"],
                         border_width=1,
                         background=theme["bg_dark"],
                         ))
