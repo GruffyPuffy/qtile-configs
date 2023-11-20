@@ -48,7 +48,7 @@ if platform.node() == 'stefan-mba':
     amixer = "amixer -c 1 "
 
 # terminal setting
-terminal = guess_terminal()
+terminal = guess_terminal("kitty")
 home = os.path.expanduser("~")
 
 groups = [Group(i) for i in "1234567890"]
