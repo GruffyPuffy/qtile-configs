@@ -24,7 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import hook, bar, layout, widget
+from libqtile import qtile, hook, bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -53,6 +53,7 @@ groups = [Group(i) for i in "1234567890"]
 left_groups  = [str(i) for i in "12345"]
 right_groups = [str(i) for i in "67890"]
 screen_groups = [left_groups, right_groups]
+
 
 
 def next_group(qtile):
@@ -263,56 +264,48 @@ widget_defaults = dict(
     fontsize=14, 
     padding=10)
 
-left_screen_bar = bar.Bar(
-    [
-        widget.CurrentLayoutIcon(),
-        widget.GroupBox(visible_groups=left_groups),
-        #widget.Prompt(),
-        widget.WindowName(),
-        widget.CPUGraph(width=42, line_width=2,
+
+def get_screen_bar(number):
+    
+    widgets = []
+
+    widgets.append(widget.CurrentLayoutIcon())
+    if number == 0:
+        widgets.append(widget.GroupBox(visible_groups=left_groups))
+    else:
+        widgets.append(widget.GroupBox(visible_groups=right_groups))
+
+    widgets.append(widget.WindowName())
+    if number == 0:
+        widgets.append(widget.CPUGraph(width=42, line_width=2,
                         graph_color='#0066FF',
                         fill_color=['#0066FF', '#001111'],
                         margin_x=0, border_width=1,
                         background=theme["bg_dark"],
-                        ),
-        widget.MemoryGraph(width=42, line_width=2,
+                        ))
+        widgets.append(widget.MemoryGraph(width=42, line_width=2,
                         graph_color='#22BB44',
                         fill_color=['#11FF11', "#002200"],
                         border_width=1,
                         background=theme["bg_dark"],
-                        ),
+                        ))
+        widgets.append(widget.Systray())
+    
+    widgets.append(widget.Clock(format="%Y-%m-%d %H:%M"))
 
-        #widget.StatusNotifier(),
-        widget.Systray(),
-        widget.Clock(format="%Y-%m-%d %H:%M"),
-        widget.Volume(fmt="Vol {}",
+    if number == 0:
+        widgets.append(widget.Volume(fmt="Vol {}",
             volume_down_cmd=amixer+"sset Master 5%-",
             volume_up_cmd=amixer+"sset Master 5%+",
-            get_volume_command=amixer+"sget Master"),
-        widget.BatteryIcon(),
-        widget.CurrentLayoutIcon(),
-    ],
-    size=28, 
-    opacity=0.8
-)
-right_screen_bar = bar.Bar(
-    [
-        widget.CurrentLayoutIcon(),
-        widget.GroupBox(visible_groups=right_groups),
-        #widget.Prompt(),
-        widget.WindowName(),
-        widget.Clock(format="%Y-%m-%d %H:%M"),
-        widget.CurrentLayoutIcon(),
-    ],
-    size=28, 
-    opacity=0.8
-)
+            get_volume_command=amixer+"sget Master"))
+    widgets.append(widget.CurrentLayoutIcon())
 
+    return bar.Bar(widgets, size=28, opacity=0.8)
 
 
 screens = [
     Screen(
-        top=left_screen_bar,
+        top=get_screen_bar(0),
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
         # By default we handle these events delayed to already improve performance, however your system might still be struggling
         # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
@@ -322,7 +315,7 @@ screens = [
         
     ),
     Screen(
-        top=right_screen_bar,
+        top=get_screen_bar(1),
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
         # By default we handle these events delayed to already improve performance, however your system might still be struggling
         # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
@@ -411,4 +404,17 @@ def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.Popen([home])
 
+@hook.subscribe.startup
+def dbus_register():
+    id = os.environ.get('DESKTOP_AUTOSTART_ID')
+    if not id:
+        return
+    subprocess.Popen(['dbus-send',
+                      '--session',
+                      '--print-reply',
+                      '--dest=org.gnome.SessionManager',
+                      '/org/gnome/SessionManager',
+                      'org.gnome.SessionManager.RegisterClient',
+                      'string:qtile',
+                      'string:' + id])
 
