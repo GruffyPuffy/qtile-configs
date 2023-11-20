@@ -187,9 +187,9 @@ keys = [
 ]
 
 layout_theme = {
-    "border_width": 3,
+    "border_width": 5,
     "margin": 3,
-    "border_focus": "#005F0C",
+    "border_focus": "#FF79C6",#CAA9FA",#5AF78E",#"#005F0C",
     "border_normal": "#555555"
     }
 
@@ -306,6 +306,7 @@ def get_screen_bar(number):
     widgets.append(widget.CurrentLayoutIcon())
 
     return bar.Bar(widgets, size=28, opacity=0.8)
+
 
 
 screens = [
