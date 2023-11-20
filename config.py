@@ -40,8 +40,10 @@ import platform
 mod = "mod1"
 amixer = "amixer "
 
+islaptop = False
 # LAPTOP
 if platform.node() == 'stefan-mba':
+    islaptop = True
     mod = "mod4"
     amixer = "amixer -c 1 "
 
@@ -290,6 +292,9 @@ def get_screen_bar(number):
                         background=theme["bg_dark"],
                         ))
         widgets.append(widget.Systray())
+
+        if islaptop:
+            widgets.append(widget.BatteryIcon())
     
     widgets.append(widget.Clock(format="%Y-%m-%d %H:%M"))
 
