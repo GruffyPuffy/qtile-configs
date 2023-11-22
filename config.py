@@ -313,11 +313,11 @@ def get_screen_bar(number):
     
     widgets.append(widget.Clock(format="%Y-%m-%d %H:%M"))
 
-    if number == 0:
-        widgets.append(widget.Volume(fmt="Vol {}",
-            volume_down_cmd=amixer+"sset Master 5%-",
-            volume_up_cmd=amixer+"sset Master 5%+",
-            get_volume_command=amixer+"sget Master"))
+#    if number == 0:
+#        widgets.append(widget.Volume(fmt="Vol {}",
+#            volume_down_cmd=amixer+"sset Master 5%-",
+#            volume_up_cmd=amixer+"sset Master 5%+",
+#            get_volume_command=amixer+"sget Master"))
     widgets.append(widget.CurrentLayoutIcon())
 
     return bar.Bar(widgets, size=28, opacity=0.8)
