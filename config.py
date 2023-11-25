@@ -310,7 +310,8 @@ def get_screen_bar(number):
     else:
         widgets.append(widget.GroupBox(active='8be9fd', highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=right_groups))
 
-    widgets.append(widget.WindowName())
+    #widgets.append(widget.WindowName())
+    widgets.append(widget.TaskList())
     if number == 0:
         widgets.append(widget.CPUGraph(width=42, line_width=2,
                         graph_color='#50fa7b',
