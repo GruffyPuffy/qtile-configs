@@ -67,6 +67,7 @@ screen_groups = [left_groups, right_groups]
 
 
 def next_group(qtile):
+    #logger.warning("----- NEXT -----")
     #logger.warning("Next group called: " + str(qtile.current_screen))
 
     screen_index = qtile.current_screen.index
@@ -80,7 +81,11 @@ def next_group(qtile):
     #logger.warning(str(current_info))
     
     current_group = current_info['group']
-    current_group_index = group_list.index(current_group)
+    try:
+        current_group_index = group_list.index(current_group)
+    except:
+        logger.warning("Searching for " + str(current_group) + " in " + str(group_list) + " @ screen: " + str(screen_index))
+        current_group_index = -1
     #logger.warning("Group index:" + str(current_group_index))
     next_group_index = current_group_index + 1
     if next_group_index >= len(group_list):
@@ -90,6 +95,7 @@ def next_group(qtile):
     qtile.groups_map[next_name].toscreen(toggle=False)
 
 def prev_group(qtile):
+    #logger.warning("----- PREV -----")
     #logger.warning("Next group called: " + str(qtile.current_screen))
 
     screen_index = qtile.current_screen.index
@@ -103,7 +109,12 @@ def prev_group(qtile):
     #logger.warning(str(current_info))
     
     current_group = current_info['group']
-    current_group_index = group_list.index(current_group)
+    #logger.warning("Searching for " + str(current_group) + " in " + str(group_list) + " @ screen: " + str(screen_index))
+    try:
+        current_group_index = group_list.index(current_group)
+    except:
+        logger.warning("Searching for " + str(current_group) + " in " + str(group_list) + " @ screen: " + str(screen_index))
+        current_group_index = 1
     #logger.warning("Group index:" + str(current_group_index))
     next_group_index = current_group_index - 1
     if next_group_index < 0:
