@@ -36,9 +36,13 @@ import os
 import subprocess
 import platform
 
-# DEV MACHINE
+# Defaults
 mod = "mod1"
 amixer = "amixer "
+
+# terminal setting
+terminal = guess_terminal("kitty")
+chrome_cmd = "google-chrome"
 
 islaptop = False
 # LAPTOP
@@ -46,9 +50,10 @@ if platform.node() == 'stefan-mba':
     islaptop = True
     mod = "mod4"
     amixer = "amixer -c 1 "
-    
-# terminal setting
-terminal = guess_terminal("alacritty")
+
+if platform.node() == 'stefan-eos':
+    chrome_cmd = "google-chrome-stable"
+
 home = os.path.expanduser("~")
 
 powermenu_cmd = "rofi -show powermenu -modi powermenu:'" + home + "/.config/qtile/rofi/rofi-power-menu  --no-symbols'"
@@ -180,7 +185,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn command launcher"),
-    Key([mod], "b", lazy.spawn("google-chrome"), desc="Spawn Google Chrome"),
+    Key([mod], "b", lazy.spawn(chrome_cmd), desc="Spawn Google Chrome"),
     Key([mod], "e", lazy.spawn("i3lock-fancy -p"), desc="Lock screen"),
     Key([mod], "p", lazy.spawn(powermenu_cmd), desc="Power menu"),
 
