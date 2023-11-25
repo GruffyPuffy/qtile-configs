@@ -301,8 +301,10 @@ widget_defaults = dict(
 def get_screen_bar(number):
     
     widgets = []
-
+    
     widgets.append(widget.CurrentLayoutIcon())
+    widgets.append(widget.CurrentScreen())
+
     if number == 0:
         widgets.append(widget.GroupBox(active='8be9fd', highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=left_groups))
     else:
