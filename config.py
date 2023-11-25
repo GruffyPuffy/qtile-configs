@@ -302,7 +302,7 @@ def get_screen_bar(number):
     
     widgets = []
     
-    widgets.append(widget.CurrentLayoutIcon())
+    widgets.append(widget.CurrentLayoutIcon(scale=0.9))
     widgets.append(widget.CurrentScreen())
 
     if number == 0:
@@ -336,7 +336,7 @@ def get_screen_bar(number):
 #            volume_down_cmd=amixer+"sset Master 5%-",
 #            volume_up_cmd=amixer+"sset Master 5%+",
 #            get_volume_command=amixer+"sget Master"))
-    widgets.append(widget.CurrentLayoutIcon())
+    widgets.append(widget.CurrentLayoutIcon(scale=0.9))
 
     return bar.Bar(widgets, size=28, opacity=0.8)
 
