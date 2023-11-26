@@ -303,7 +303,7 @@ def get_screen_bar(number):
     widgets = []
     
     widgets.append(widget.CurrentLayoutIcon(scale=0.9))
-    widgets.append(widget.CurrentScreen())
+    widgets.append(widget.CurrentScreen(active_text='ACTIVE', inactive_text=''))
 
     if number == 0:
         widgets.append(widget.GroupBox(active='8be9fd', highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=left_groups))
