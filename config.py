@@ -313,12 +313,14 @@ def get_screen_bar(number):
     #widgets.append(widget.WindowName())
     widgets.append(widget.TaskList( highlight_method='block', borderwidth=0, icon_size=20, margin=3, padding=4))
     if number == 0:
+        widgets.append(widget.TextBox("Load:"))
         widgets.append(widget.CPUGraph(width=42, line_width=2,
                         graph_color='#50fa7b',
                         fill_color=['#50fa7b', '#001111'],
                         margin_x=0, border_width=1,
                         background=theme["bg_dark"],
                         ))
+        widgets.append(widget.TextBox("Mem:")),
         widgets.append(widget.MemoryGraph(width=42, line_width=2,
                         graph_color='#8be9fd',
                         fill_color=['#8be9fd', "#002200"],
