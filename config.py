@@ -341,29 +341,61 @@ def get_screen_bar(number):
 
     return bar.Bar(widgets, size=28, opacity=0.8)
 
+# Using this when testing two screens on one screen
+fake=False
 
+if not fake:
+    screens = [
+        Screen(
+            top=get_screen_bar(0),
+            # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
+            # By default we handle these events delayed to already improve performance, however your system might still be struggling
+            # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
+            # x11_drag_polling_rate = 60,
+            wallpaper='~/.config/qtile/wallpaper.jpg',
+            wallpaper_mode='stretch',
+            
+        ),
+        Screen(
+            top=get_screen_bar(1),
+            # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
+            # By default we handle these events delayed to already improve performance, however your system might still be struggling
+            # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
+            # x11_drag_polling_rate = 60,
+            wallpaper='~/.config/qtile/wallpaper.jpg',
+            wallpaper_mode='stretch',
+        ),
+    ]
+else:
+    fake_screens = [
+        Screen(
+            top=get_screen_bar(0),
+            # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
+            # By default we handle these events delayed to already improve performance, however your system might still be struggling
+            # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
+            # x11_drag_polling_rate = 60,
+            wallpaper='~/.config/qtile/wallpaper.jpg',
+            wallpaper_mode='stretch',
+            x=0,
+            y=0,
+            width=1280,
+            height=1080  
+        ),
+        Screen(
+            top=get_screen_bar(1),
+            # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
+            # By default we handle these events delayed to already improve performance, however your system might still be struggling
+            # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
+            # x11_drag_polling_rate = 60,
+            wallpaper='~/.config/qtile/wallpaper.jpg',
+            wallpaper_mode='stretch',
+            x=1280,
+            y=0,
+            width=1280,
+            height=1080  
+        ),
+    ]
 
-screens = [
-    Screen(
-        top=get_screen_bar(0),
-        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
-        # By default we handle these events delayed to already improve performance, however your system might still be struggling
-        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
-        # x11_drag_polling_rate = 60,
-        wallpaper='~/.config/qtile/wallpaper.jpg',
-        wallpaper_mode='stretch',
-        
-    ),
-    Screen(
-        top=get_screen_bar(1),
-        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
-        # By default we handle these events delayed to already improve performance, however your system might still be struggling
-        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
-        # x11_drag_polling_rate = 60,
-        wallpaper='~/.config/qtile/wallpaper.jpg',
-        wallpaper_mode='stretch',
-    ),
-]
 
 
 if len(screens) == 2:
