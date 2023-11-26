@@ -206,32 +206,6 @@ keys = [
 
 ]
 
-layout_theme = {
-    "border_width": 5,
-    "margin": 3,
-    "border_focus": "#FF79C6",#CAA9FA",#5AF78E",#"#005F0C",
-    "border_normal": "#555555"
-    }
-
-layouts = [
-    #layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Columns(**layout_theme),
-    layout.Max(**layout_theme),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
-    #layout.RatioTile(**layout_theme),
-    layout.MonadThreeCol(**layout_theme),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-]
-
-
 #   Screens Config
 # ------------------
 flat_theme = {"bg_dark": ["#606060", "#000000"],
@@ -286,6 +260,45 @@ dracula_theme = {"bg_dark": ["#282a36", "#282a36"],
 
 
 theme = dracula_theme
+
+layout_theme = {
+    "border_width": 5,
+    "margin": 3,
+    "border_focus": "#FF79C6",#CAA9FA",#5AF78E",#"#005F0C",
+    "border_normal": "#555555"
+    }
+
+treetab_layout = {
+    "bg_color": theme["bg_dark"],
+    "active_bg": theme["gb_selected"], #"#7BA1BA", #"#FF79C6",
+    "inactive_bg": theme["bg_light"],
+    "sections": ["Windows"],
+    "font": "sans",
+    "fontsize": 12,
+    "border_width": 0,
+}
+
+layouts = [
+    #layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(**layout_theme),
+    #layout.Max(**layout_theme),
+    layout.TreeTab(**treetab_layout),
+    # Try more layouts by unleashing below layouts.
+    # layout.Stack(num_stacks=2),
+    # layout.Bsp(),
+    # layout.Matrix(),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    #layout.RatioTile(**layout_theme),
+    layout.MonadThreeCol(**layout_theme),
+    # layout.Tile(),
+    # layout.TreeTab(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
+]
+
+
+
 
 # Widgets Theme
 widget_defaults = dict(
