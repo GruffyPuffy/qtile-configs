@@ -17,6 +17,18 @@ Other stuff I use (for Ubuntu/Pop_OS!):
   sudo apt install kitty rofi i3lock-fancy amixer picom xautolock 
 ```
 
+I have created a few additions that might be of interest to you:
+- There are 10 groups, and if you run dual-screen setup they are dived on two screens.
+- You can navigate between these (see key-bindings) independently on each screen. 
+- I am re-using the "traverse.py" from the qtile-samples repository to change focus 
+between windows/screens.
+See code sections in these two + functions (plus the keybindings):
+
+```
+def next_group(qtile)
+def prev_group(qtile)
+```
+
 NOTEs
 - I use cursor keys instead of hjkl
 - I my settings, I sometime assume that the user name is 'stefan' like: (/home/stefan/.config/qtile)
