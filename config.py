@@ -59,7 +59,19 @@ home = os.path.expanduser("~")
 powermenu_cmd = "rofi -show powermenu -modi powermenu:'" + home + "/.config/qtile/rofi/rofi-power-menu  --no-symbols'"
 
 
-groups = [Group(i) for i in "1234567890"]
+#groups = [Group(i) for i in "1234567890"]
+groups = [
+    Group(name="1", label="Web"),
+    Group(name="2", label="Code1"),
+    Group(name="3", label="Code2"),
+    Group(name="4", label="Code3"),
+    Group(name="5", label="Code4"),
+    Group(name="6", label="Social"),
+    Group(name="7", label="Remmina"),
+    Group(name="8", label="Docker"),
+    Group(name="9", label="Misc1"),
+    Group(name="0", label="Misc2")
+    ]
 left_groups  = [str(i) for i in "12345"]
 right_groups = [str(i) for i in "67890"]
 screen_groups = [left_groups, right_groups]
