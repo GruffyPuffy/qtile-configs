@@ -7,3 +7,6 @@ else
     nm-applet &
     pasystray &
 fi
+
+# Lock-screen
+xautolock -time 20 -locker /usr/bin/i3lock-fancy -detectsleep &
