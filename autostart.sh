@@ -9,4 +9,4 @@ else
 fi
 
 # Lock-screen
-xautolock -time 20 -locker /usr/bin/i3lock-fancy -detectsleep &
+xautolock -time 20 -locker /home/stefan/.config/qtile/lock_screen.sh -detectsleep &
