@@ -28,5 +28,7 @@ Like so:
   cp /home/stefan/.config/qtile/create-qtile-env.sh /opt/venv
   ./create-qtile-env.sh
 
+  After this you should see a "Qtile(venv)" session on login.
+
 Good luck
 Stefan
