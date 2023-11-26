@@ -294,7 +294,7 @@ widget_defaults = dict(
     border_color="#6f6f6f",
     fontshadow="#000000",
     font='sans', 
-    fontsize=14, 
+    fontsize=12, 
     padding=10)
 
 
@@ -311,7 +311,7 @@ def get_screen_bar(number):
         widgets.append(widget.GroupBox(active='8be9fd', highlight_color=['FF79C6', 'FF79C6'], highlight_method='line', visible_groups=right_groups))
 
     #widgets.append(widget.WindowName())
-    widgets.append(widget.TaskList())
+    widgets.append(widget.TaskList( highlight_method='block', borderwidth=0, icon_size=20, margin=3, padding=4))
     if number == 0:
         widgets.append(widget.CPUGraph(width=42, line_width=2,
                         graph_color='#50fa7b',
