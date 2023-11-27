@@ -61,16 +61,16 @@ powermenu_cmd = "rofi -show powermenu -modi powermenu:'" + home + "/.config/qtil
 
 #groups = [Group(i) for i in "1234567890"]
 groups = [
-    Group(name="1", label="Web"),
-    Group(name="2", label="Code1"),
-    Group(name="3", label="Code2"),
-    Group(name="4", label="Code3"),
-    Group(name="5", label="Code4"),
-    Group(name="6", label="Social"),
-    Group(name="7", label="Remmina"),
-    Group(name="8", label="Docker"),
-    Group(name="9", label="Misc1"),
-    Group(name="0", label="Misc2")
+    Group(name="1", label="1:Web"),
+    Group(name="2", label="2:Code1"),
+    Group(name="3", label="3:Code2"),
+    Group(name="4", label="4:Code3"),
+    Group(name="5", label="5:Code4"),
+    Group(name="6", label="6:Social"),
+    Group(name="7", label="7:Remmina"),
+    Group(name="8", label="8:Docker"),
+    Group(name="9", label="9:Misc1"),
+    Group(name="0", label="0:Misc2")
     ]
 left_groups  = [str(i) for i in "12345"]
 right_groups = [str(i) for i in "67890"]
