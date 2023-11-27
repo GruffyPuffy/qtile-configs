@@ -36,7 +36,7 @@ NOTEs
 - I sometime use the hostname (in config.py and autostart) to have different setups.
 - Verify xrandr settings for your screen setup (in autostart.sh)
 - There is a rofi-menu of all used keybindings => SUPER+F1
-- The wallpaper was taken outside my house in march 2022 when we had a nice aurora/northern light in south of Sweden.
+- The wallpaper was taken outside my house in march 2023 when we had a nice aurora/northern light in south of Sweden.
 
 
 There is also an included virtualenv for running qtile in its own environment. Might be easier if you
