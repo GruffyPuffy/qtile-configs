@@ -330,6 +330,7 @@ layouts = [
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
+    layout.Floating(**layout_theme),
 ]
 
 
